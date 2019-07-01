@@ -1,0 +1,641 @@
+\documentclass[a4paper]{article}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{url} % per scrivere gli indirizzi url
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[left=1.5cm,bottom=1.5cm,right=1cm,top=1cm]{geometry}
+\usepackage{frontespizio}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{siunitx}  
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{framed} %linee nel lsting
+\usepackage{parskip} %risolve i dannati indent.
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+
+
+
+
+
+\definecolor{comment}{RGB}{237, 141, 33}
+\definecolor{backy}{RGB}{ 255, 253, 183 }
+\definecolor{back}{RGB}{ 30,30,30 }
+\definecolor{shadecolor}{RGB}{ 30,30,30 }
+\lstset{
+%rulecolor=\color{white},
+numbers=left,
+numberstyle=\color{black},
+%backgroundcolor=\color{back},   
+frame=single,
+showspaces=false,
+basicstyle=\ttfamily,%\color{white},
+showstringspaces=false,
+keywordstyle=\color{purple},       % keyword style
+commentstyle=\color{comment},    % comment style
+stringstyle=\color{blue}    % string literal style
+}
+
+
+
+\begin{document}
+
+\begin{center}
+\begin{Huge}
+Manuale linguaggio di programmazione G8
+\end{Huge}
+\end{center}
+
+\includegraphics[scale=1]{UniBG.png}
+\\
+\\
+\begin{Large}
+\begin{flushright}
+Stefano Villa, Matricola 1055820
+
+Matteo Zambelli, Matricola 1055560
+\end{flushright}
+\end{Large}
+
+\newpage
+\begin{LARGE}
+\textbf{Indice}
+\end{LARGE}
+
+\newpage
+
+\section{Introduzione}
+
+\newpage
+
+\section{Strumenti di sviluppo}
+
+\newpage
+
+\section{Struttura}
+
+\newpage
+
+\section{Grammatica G8}
+La grammatica creata ha, come obiettivo, quello di riprodurre il Canvas HTML5, uno strumento utilizzato per rappresentare graficamente figure geometriche più o meno complesse all’interno di un’area di disegno appositamente realizzata.
+\\
+\\
+Il parser presenta 3 regole principali, relative alla creazione dell’area di disegno, alla lista delle figure geometriche da realizzare e alla terminazione dell’operazione di disegno.
+\\
+\\
+Nella classe \textit{begin} l'utente deve inserire il titolo del proprio lavoro, la larghezza dell'area di disegno e l'altezza della stessa. La sintassi è la seguente:
+\begin{verbatim}
+TITLE titolo DRAWSPACE WIDTH larghezza area disegno DRAWSPACE HEIGTH altezza area disegno
+\end{verbatim}
+Nella classe \textit{list} è presente una lista di 6 figure; l'utente deve sceglierne una tra: linea, triangolo, rettangolo, curva, cerchio ed ellisse. Ogni figura presenta dei valori obbligatori, relativi alle misure che andranno da (0, 0), angolo in alto a sinistra dello schermo, al valore massimo scelto per l’area di disegno, e dei valori facoltativi, relativi a colore, spessore, riempimento, rotazione, ecc. E’ anche possibile nominare la figura a piacimento: in caso non venisse dato un nome, questo verrà settato al valore di default “no name”.
+\begin{itemize}
+\item \textbf{line}: la grammatica prevede l'inserimento obbligatorio delle coordinate di partenza e di arrivo. L’utente può anche inserire, facoltativamente, il colore e lo spessore della linea: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore nero, spessore 1). La sintassi è la seguente:
+\begin{verbatim}
+LINE: (NAME nome) XSTART ascissa di partenza YSTART ordinata di partenza XEND ascissa di arrivo
+YEND ordinata di arrivo (COLOR colore WIDTH spessore)
+\end{verbatim}
+\item \textbf{triangle}: la grammatica prevede l'inserimento obbligatorio delle coordinate dei tre vertici. L’utente può anche inserire, facoltativamente, il colore del bordo, lo spessore del bordo e il riempimento della figura: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore bordo nero, spessore 1, colore riempimento trasparente). La sintassi è la seguente:
+\begin{verbatim}
+TRIANGLE: (NAME nome) XA ascissa primo vertice YA ordinata primo vertice XB ascissa secondo
+vertice YB ordinata secondo vertice XC ascissa terzo vertice YC ordinata terzo vertice (COLOR
+colore bordo WIDTH spessore bordo COLORBODY colore riempimento)
+\end{verbatim}
+\item \textbf{rectangle}: la grammatica prevede l'inserimento obbligatorio delle coordinate dei due vertici opposti. L’utente può anche inserire, facoltativamente, il colore del bordo, lo spessore del bordo e il riempimento della figura: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore bordo nero, spessore 1, colore riempimento trasparente). La sintassi è la seguente:
+\begin{verbatim}
+RECT: (NAME nome) XSTART ascissa primo vertice YSTART ordinata primo vertice XEND ascissa terzo
+vertice YEND ordinata terzo vertice (COLOR colore bordo WIDTH spessore bordo COLORBODY colore
+riempimento)
+\end{verbatim}
+\item \textbf{curve}: la grammatica prevede l'inserimento obbligatorio delle coordinate del punto di partenza, del punto di arrivo e del punto di curvatura. L’utente può anche inserire, facoltativamente, il colore del bordo, lo spessore del bordo e il riempimento della figura: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore bordo nero, spessore 1, colore riempimento trasparente). La sintassi è la seguente:
+\begin{verbatim}
+CURV: (NAME nome) XSTART ascissa di partenza YSTART ordinata di partenza XMIDDLE ascissa punto
+curvatura YMIDDLE ordinata punto curvatura XEND ascissa di arrivo YEND ordinata di arrivo
+(COLOR colore bordo WIDTH spessore bordo COLORBODY colore riempimento)
+\end{verbatim}
+\item \textbf{circle}: la grammatica prevede l'inserimento obbligatorio delle coordinate del centro e del raggio. L’utente può anche inserire, facoltativamente, il colore del bordo, lo spessore del bordo e il riempimento della figura: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore bordo nero, spessore 1, colore riempimento trasparente). Altro elemento facoltativo da inserire è relativo all’angolo di partenza e di arrivo: è infatti possibile sviluppare circonferenze parziali o semicirconferenze, inserendo dei limiti nell’angolo da rappresentare; in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (0 come start angle e 360 come end angle) sviluppando l’intera circonferenza. La sintassi è la seguente:
+\begin{verbatim}
+CIRC: (NAME nome) XCENTER ascissa dell’origine YCENTER ordinata dell’origine RADIUS raggio
+(STARTANGLE angolo di partenza ENDANGLE angolo di arrivo COLOR colore bordo WIDTH spessore
+bordo COLORBODY colore riempimento)
+\end{verbatim}
+\item \textbf{ellipse}: la grammatica prevede l'inserimento obbligatorio delle coordinate del centro, del semiasse maggiore e del semiasse minore. L’utente può anche inserire, facoltativamente, il colore del bordo, lo spessore del bordo e il riempimento della figura: in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (colore bordo nero, spessore 1, colore riempimento trasparente). Altro elemento facoltativo da inserire è relativo all’angolo di partenza e di arrivo: è infatti possibile sviluppare circonferenze parziali o semicirconferenze, inserendo dei limiti nell’angolo da rappresentare; in caso non venissero inseriti manualmente, verranno utilizzati i valori di default (0 come start angle e 360 come end angle) sviluppando l’intera circonferenza. E’ inoltre possibile assegnare un valore di rotazione dell’ellisse intorno alla propria origine, ruotando di un valore positivo o negativo di tot gradi; in caso non venisse inserito manualmente verrà utilizzato il valore di default che non prevede alcuna rotazione (0 come angolo di rotazione). La sintassi è la seguente:
+\begin{verbatim}
+ELLIPS: (NAME nome) XCENTER ascissa dell’origine YCENTER ordinata dell’origine SEMIN asse
+minore SEMAX asse maggiore (STARTANGLE angolo di partenza ENDANGLE angolo di arrivo ROTATION
+angolo di rotazione COLOR colore bordo WIDTH spessore bordo COLORBODY colore riempimento)
+\end{verbatim}
+\end{itemize}
+Nella classe \textit{end} l’utente si deve limitare a scrivere END per terminare l’esecuzione del lavoro. La sintassi è la seguente:
+\begin{verbatim}
+END
+\end{verbatim}
+
+\newpage
+
+\section{Traduzione}
+
+\subsection{Vincoli semantici}
+
+\newpage
+
+\section{Esempio pratico}
+Come esempio pratico abbiamo realizzato una rappresentazione del viso di Topolino, personaggio realizzato nel 1928 da Walter Elias Disney e oggi simbolo della multinazionale The Walt Disney Company.
+\\
+\\
+Di seguito mostreremo il codice necessario per realizzare il logo in Canvas HTML5, successivamente il codice nel nostro linguaggio G8 e infine il risultato grafico.
+
+\subsection{Versione Canvas HTML5}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+<title> Topolino </title>
+<style> canvas {border: 1px #000 dotted;} </style>
+<script>
+window.onload = function () {
+
+	var canvas = document.getElementById('Topolino');
+	var context = canvas.getContext('2d'); 
+
+	//CirconferenzaViso
+	context.beginPath();
+	var centerX = 850.0;
+	var centerY = 550.0;
+	var radius = 300.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//EllisseOrecchioSinistro
+	context.beginPath();
+	var centerX = 600.0;
+	var centerY = 210.0;
+	var radiusMax = 170.0;
+	var radiusMin= 130.0;
+	var rotation= -45.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//EllisseOrecchioDestro
+	context.beginPath();
+	var centerX = 1100.0;
+	var centerY = 210.0;
+	var radiusMax = 170.0;
+	var radiusMin= 130.0;
+	var rotation= 45.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//EllisseParteAltaSinistraViso
+	context.beginPath();
+	var centerX = 750.0;
+	var centerY = 450.0;
+	var radiusMax = 120.0;
+	var radiusMin= 170.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//EllisseParteAltaDestraViso
+	context.beginPath();
+	var centerX = 950.0;
+	var centerY = 450.0;
+	var radiusMax = 120.0;
+	var radiusMin= 170.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CerchioInferioreCoperturaNero
+	context.beginPath();
+	var centerX = 850.0;
+	var centerY = 550.0;
+	var radius = 299.0;
+	var startAngle = 16.2* Math.PI/180;
+	var endAngle = 163.8* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CurvaGuanciaSinistra
+	context.beginPath();
+	context.lineWidth = 0.0;
+	context.strokeStyle = '#FFFFFF';
+	context.moveTo( 566.0, 642.0);
+	context.quadraticCurveTo( 580.0, 560.0, 672.0, 580.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CurvaGuanciaDestra
+	context.beginPath();
+	context.lineWidth = 0.0;
+	context.strokeStyle = '#FFFFFF';
+	context.moveTo( 1028.0, 580.0);
+	context.quadraticCurveTo( 1103.0, 560.0, 1136.0, 642.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//TriangoloCoperturaNeroCentrale
+	context.beginPath();
+	context.lineWidth = 0.0;
+	context.strokeStyle = '#FFFFFF';
+	context.moveTo(566.0, 641.0);
+	context.lineTo(1134.0, 641.0);
+	context.lineTo(850.0, 476.0);
+	context.lineTo(566.0, 641.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//EllisseOcchioSinistro
+	context.beginPath();
+	var centerX = 788.0;
+	var centerY = 450.0;
+	var radiusMax = 40.0;
+	var radiusMin= 100.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 3.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.closePath();
+
+	//EllisseOcchioDestro
+	context.beginPath();
+	var centerX = 912.0;
+	var centerY = 450.0;
+	var radiusMax = 40.0;
+	var radiusMin= 100.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 3.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.closePath();
+
+	//EllissePupillaSinistra
+	context.beginPath();
+	var centerX = 810.0;
+	var centerY = 480.0;
+	var radiusMax = 15.0;
+	var radiusMin= 40.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//EllissePupillaDestra
+	context.beginPath();
+	var centerX = 890.0;
+	var centerY = 480.0;
+	var radiusMax = 15.0;
+	var radiusMin= 40.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//CurvaSottoOcchi
+	context.beginPath();
+	context.lineWidth = 6.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 740.0, 552.0);
+	context.quadraticCurveTo( 850.0, 470.0, 960.0, 552.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CirconferenzaCopriCurvaOcchiSinistra
+	context.beginPath();
+	var centerX = 740.0;
+	var centerY = 552.0;
+	var radius = 3.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CirconferenzaCopriCurvaOcchiDestra
+	context.beginPath();
+	var centerX = 960.0;
+	var centerY = 552.0;
+	var radius = 3.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CurvaMento
+	context.beginPath();
+	context.lineWidth = 2.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 700.0, 750.0);
+	context.quadraticCurveTo( 850.0, 980.0, 1000.0, 750.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CurvaLabbroInferiore
+	context.beginPath();
+	context.lineWidth = 4.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 700.0, 696.0);
+	context.quadraticCurveTo( 850.0, 990.0, 1000.0, 696.0);
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//CurvaLabbroSuperiore
+	context.beginPath();
+	context.lineWidth = 4.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 620.0, 635.0);
+	context.quadraticCurveTo( 850.0, 850.0, 1080.0, 635.0);
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CurvaLabbroSinistro
+	context.beginPath();
+	context.lineWidth = 3.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 598.0, 658.0);
+	context.quadraticCurveTo( 625.0, 625.0, 653.0, 623.0);
+	context.stroke();
+	context.closePath();
+
+	//CurvaLabbroDestro
+	context.beginPath();
+	context.lineWidth = 3.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 1102.0, 658.0);
+	context.quadraticCurveTo( 1075.0, 625.0, 1047.0, 623.0);
+	context.stroke();
+	context.closePath();
+
+	//EllisseNaso
+	context.beginPath();
+	var centerX = 850.0;
+	var centerY = 600.0;
+	var radiusMax = 65.0;
+	var radiusMin= 50.0;
+	var rotation= 0.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#000000';
+	context.stroke();
+	context.fillStyle= '#000000';
+	context.fill();
+	context.closePath();
+
+	//CerchioCopriMentoSinistro
+	context.beginPath();
+	var centerX = 700.0;
+	var centerY = 773.0;
+	var radius = 22.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//CerchioCopriMentoDestro
+	context.beginPath();
+	var centerX = 1000.0;
+	var centerY = 773.0;
+	var radius = 22.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//TerminaCirconferenzaViso
+	context.beginPath();
+	context.lineWidth = 0.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 1137.0, 642.0);
+	context.quadraticCurveTo( 1137.0, 642.0, 1137.0, 641.0);
+	context.stroke();
+	context.closePath();
+
+	//CerchioCopriTerminaCirconferenzaViso
+	context.beginPath();
+	var centerX = 1139.0;
+	var centerY = 642.0;
+	var radius = 1.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 360.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FFFFFF';
+	context.stroke();
+	context.fillStyle= '#FFFFFF';
+	context.fill();
+	context.closePath();
+
+	//EllisseLinguaSinistra
+	context.beginPath();
+	var centerX = 829.0;
+	var centerY = 816.0;
+	var radiusMax = 46.0;
+	var radiusMin= 25.0;
+	var rotation= 18.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FF0000';
+	context.stroke();
+	context.fillStyle= '#FF0000';
+	context.fill();
+	context.closePath();
+
+	//EllisseLinguaDestra
+	context.beginPath();
+	var centerX = 867.0;
+	var centerY = 817.0;
+	var radiusMax = 46.0;
+	var radiusMin= 25.0;
+	var rotation= -18.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=360.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 0.0;
+	context.strokeStyle= '#FF0000';
+	context.stroke();
+	context.fillStyle= '#FF0000';
+	context.fill();
+	context.closePath();
+
+	//LineaLingua
+	context.beginPath();
+	context.lineWidth = 2.0;
+	context.strokeStyle = '#000000';
+	context.moveTo( 842.0, 792.0);
+	context.quadraticCurveTo( 870.0, 803.0, 870.0, 815.0);
+	context.stroke();
+	context.closePath();
+
+}
+</script>
+</head>
+<body>
+<canvas id='Topolino' width='1700.0' height='900.0'></canvas>
+</body>
+</html>
+\end{verbatim}
+
+\newpage
+
+\subsection{Versione G8}
+\begin{verbatim}
+TITLE Topolino DRAWSPACE WIDTH 1700 DRAWSPACE HEIGTH 900
+CIRC: NAME CirconferenzaViso XCENTER 850 YCENTER 550 RADIUS 300 COLORBODY #000000
+ELLIPS: NAME EllisseOrecchioSinistro XCENTER 600 YCENTER 210 SEMIN 130 SEMAX 170 ROTATION -45
+COLORBODY #000000
+ELLIPS: NAME EllisseOrecchioDestro XCENTER 1100 YCENTER 210 SEMIN 130 SEMAX 170 ROTATION +45
+COLORBODY #000000
+ELLIPS: NAME EllisseParteAltaSinistraViso XCENTER 750 YCENTER 450 SEMIN 170 SEMAX 120 COLOR
+#FFFFFF COLORBODY #FFFFFF
+ELLIPS: NAME EllisseParteAltaDestraViso XCENTER 950 YCENTER 450 SEMIN 170 SEMAX 120 COLOR #FFFFFF
+COLORBODY #FFFFFF
+CIRC: NAME CerchioInferioreCoperturaNero XCENTER 850 YCENTER 550 RADIUS 299 STARTANGLE 16.2
+ENDANGLE 163.8 COLOR #FFFFFF COLORBODY #FFFFFF
+CURV: NAME CurvaGuanciaSinistra XSTART 566 YSTART 642 XMIDDLE 580 YMIDDLE 560 XEND 672 YEND 580
+COLOR #FFFFFF COLORBODY #FFFFFF
+CURV: NAME CurvaGuanciaDestra XSTART 1028 YSTART 580 XMIDDLE 1103 YMIDDLE 560 XEND 1136 YEND 642
+COLOR #FFFFFF COLORBODY #FFFFFF
+TRIANGLE: NAME TriangoloCoperturaNeroCentrale XA 566 YA 641 XB 1134 YB 641 XC 850 YC 476 COLOR
+#FFFFFF COLORBODY #FFFFFF
+ELLIPS: NAME EllisseOcchioSinistro XCENTER 788 YCENTER 450 SEMIN 100 SEMAX 40 WIDTH 3
+ELLIPS: NAME EllisseOcchioDestro XCENTER 912 YCENTER 450 SEMIN 100 SEMAX 40 WIDTH 3
+ELLIPS: NAME EllissePupillaSinistra XCENTER 810 YCENTER 480 SEMIN 40 SEMAX 15 COLORBODY #000000
+ELLIPS: NAME EllissePupillaDestra XCENTER 890 YCENTER 480 SEMIN 40 SEMAX 15 COLORBODY #000000
+CURV: NAME CurvaSottoOcchi XSTART 740 YSTART 552 XMIDDLE 850 YMIDDLE 470 XEND 960 YEND 552 WIDTH
+6 COLORBODY #FFFFFF
+CIRC: NAME CirconferenzaCopriCurvaOcchiSinistra XCENTER 740 YCENTER 552 RADIUS 3 COLOR #FFFFFF
+COLORBODY #FFFFFF
+CIRC: NAME CirconferenzaCopriCurvaOcchiDestra XCENTER 960 YCENTER 552 RADIUS 3 COLOR #FFFFFF
+COLORBODY #FFFFFF
+CURV: NAME CurvaMento XSTART 700 YSTART 750 XMIDDLE 850 YMIDDLE 980 XEND 1000 YEND 750 WIDTH 2
+COLORBODY #FFFFFF
+CURV: NAME CurvaLabbroInferiore XSTART 700 YSTART 696 XMIDDLE 850 YMIDDLE 990 XEND 1000 YEND 696
+WIDTH 4 COLORBODY #000000
+CURV: NAME CurvaLabbroSuperiore XSTART 620 YSTART 635 XMIDDLE 850 YMIDDLE 850 XEND 1080 YEND 635
+WIDTH 4 COLORBODY #FFFFFF
+CURV: NAME CurvaLabbroSinistro XSTART 598 YSTART 658 XMIDDLE 625 YMIDDLE 625 XEND 653 YEND 623
+WIDTH 3
+CURV: NAME CurvaLabbroDestro XSTART 1102 YSTART 658 XMIDDLE 1075 YMIDDLE 625 XEND 1047 YEND 623
+WIDTH 3
+ELLIPS: NAME EllisseNaso XCENTER 850 YCENTER 600 SEMIN 50 SEMAX 65 COLORBODY #000000
+CIRC: NAME CerchioCopriMentoSinistro XCENTER 700 YCENTER 773 RADIUS 22 COLOR #FFFFFF COLORBODY
+#FFFFFF
+CIRC: NAME CerchioCopriMentoDestro XCENTER 1000 YCENTER 773 RADIUS 22 COLOR #FFFFFF COLORBODY
+#FFFFFF
+CURV: NAME TerminaCirconferenzaViso XSTART 1137 YSTART 642 XMIDDLE 1137 YMIDDLE 642 XEND 1137
+YEND 641
+CIRC: NAME CerchioCopriTerminaCirconferenzaViso XCENTER 1139 YCENTER 642 RADIUS 1 COLOR #FFFFFF
+COLORBODY #FFFFFF
+ELLIPS: NAME EllisseLinguaSinistra XCENTER 829 YCENTER 816 SEMIN 25 SEMAX 46 ROTATION +18 COLOR
+#FF0000 COLORBODY #FF0000
+ELLIPS: NAME EllisseLinguaDestra XCENTER 867 YCENTER 817 SEMIN 25 SEMAX 46 ROTATION -18 COLOR
+#FF0000 COLORBODY #FF0000
+CURV: NAME LineaLingua XSTART 842 YSTART 792 XMIDDLE 870 YMIDDLE 803 XEND 870 YEND 815 WIDTH 2
+END
+\end{verbatim}
+
+\newpage
+
+\subsection{Risultato grafico}
+\includegraphics[scale=0.76]{Topolino.JPG} 
+
+\end{document}

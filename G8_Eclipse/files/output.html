@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<title> Prova </title>
+<style> canvas {border: 1px #000 dotted;} </style>
+<script>
+window.onload = function () {
+
+	var canvas = document.getElementById('Prova');
+	var context = canvas.getContext('2d'); 
+
+	//linea
+	context.beginPath();
+	context.lineWidth = 5.0;
+	context.strokeStyle = '#FF0000';
+	context.moveTo( 100.0, 100.0);
+	context.lineTo( 300.0, 300.0);
+	context.stroke();
+	context.closePath();
+
+	//triangolo
+	context.beginPath();
+	context.lineWidth = 4.0;
+	context.strokeStyle = '#0000FF';
+	context.moveTo(400.0, 400.0);
+	context.lineTo(400.0, 500.0);
+	context.lineTo(500.0, 500.0);
+	context.lineTo(400.0, 400.0);
+	context.stroke();
+	context.fillStyle= '#00FF00';
+	context.fill();
+	context.closePath();
+
+	//rettangolo1
+	context.beginPath();
+	context.lineWidth = 3.0;
+	context.strokeStyle = '#FF0000';
+	context.rect( 600.0, 600.0, 300.0, 200.0);
+	context.stroke();
+	context.fillStyle= '#FF0000';
+	context.fill();
+	context.closePath();
+
+	//rettangolo2
+	context.beginPath();
+	context.lineWidth = 3.0;
+	context.strokeStyle = '#FF0000';
+	context.rect( 200.0, 600.0, 200.0, 200.0);
+	context.stroke();
+	context.fillStyle= '#FF0000';
+	context.fill();
+	context.closePath();
+
+	//curva
+	context.beginPath();
+	context.lineWidth = 2.0;
+	context.strokeStyle = '#0000FF';
+	context.moveTo( 800.0, 100.0);
+	context.quadraticCurveTo( 900.0, 300.0, 1000.0, 200.0);
+	context.stroke();
+	context.fillStyle= '#0000FF';
+	context.fill();
+	context.closePath();
+
+	//cerchio
+	context.beginPath();
+	var centerX = 200.0;
+	var centerY = 200.0;
+	var radius = 50.0;
+	var startAngle = 0.0* Math.PI/180;
+	var endAngle = 180.0* Math.PI/180;
+	context.arc (centerX, centerY, radius, startAngle, endAngle);
+	context.lineWidth = 6.0;
+	context.strokeStyle = '#00FF00';
+	context.stroke();
+	context.fillStyle= '#00FF00';
+	context.fill();
+	context.closePath();
+
+	//ellisse
+	context.beginPath();
+	var centerX = 700.0;
+	var centerY = 700.0;
+	var radiusMax = 150.0;
+	var radiusMin= 80.0;
+	var rotation= 45.0*Math.PI/180;
+	var startAngle=0.0*Math.PI/180;
+	var endAngle=270.0*Math.PI/180;
+	context.ellipse(centerX, centerY, radiusMax, radiusMin, rotation, startAngle, endAngle);
+	context.lineWidth = 8.0;
+	context.strokeStyle = '#0000FF';
+	context.stroke();
+	context.fillStyle= '#0000FF';
+	context.fill();
+	context.closePath();
+
+}
+</script>
+</head>
+<body>
+<canvas id='Prova' width='1000.0' height='1000.0'></canvas>
+</body>
+</html>
